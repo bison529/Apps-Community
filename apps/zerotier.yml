@@ -1,9 +1,5 @@
-
 #!/bin/bash
 #
-# Title:      Zerotier
-# Author(s):  PTS-Team, SpeedyAus
-# GNU:        General Public License v3.0
 ################################################################################
 ---
 - hosts: localhost
@@ -19,10 +15,11 @@
     - name: 'Including cron job'
       include_tasks: '/opt/communityapps/apps/_core.yml'
 
+    # LABELS ######################################################################
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}/var:/var/lib/zerotier-one'
+          - '/opt/appdata/{{pgrole}}/var:/var/lib/{{pgrole}}'
           - '/etc/localtime:/etc/localtime:ro'
 
     - name: 'Setting {{pgrole}} ENV'
@@ -30,7 +27,7 @@
         pg_env:
           PUID: '1000'
           PGID: '1000'
-          HTTP_ALL_INTERFACES: 'XXX'
+          HTTP_ALL_INTERFACES: 'yes'
 
     # MAIN DEPLOYMENT #############################################################
     - name: 'Deploying {{pgrole}}'
@@ -38,12 +35,16 @@
         name: '{{pgrole}}'
         image: '{{image}}'
         pull: yes
+        published_ports:
+          - '{{ports.stdout}}{{extport}}:{{intport}}'
+          - '{{ports.stdout}}{{extport2}}:{{intport2}}'
         volumes: '{{pg_volumes}}'
         env: '{{pg_env}}'
-        restart_policy: always
-        devices:
-          - '/dev/net/tun:/dev/net/tun'
+        restart_policy: unless-stopped
         capabilities: 
           - NET_ADMIN
-        network_mode: host
+          - SYS_ADMIN
+        networks:
+          - name: host
         state: started
+        labels: '{{pg_labels}}'

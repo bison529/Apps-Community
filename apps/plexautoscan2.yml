@@ -72,5 +72,3 @@
               - '{{pgrole}}'
         state: started
         labels: '{{pg_labels}}'
-
-    - debug: msg="Final Notes = Plex AutoScan PAGE  {{pgrole}}.{{domain.stdout}}/{{plex_autoscan_server_pass.stdout}}"

@@ -15,10 +15,7 @@
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
-      include_tasks: './core.yml'
-
-    - name: 'Including PAS Tasks'
-      include_tasks: './pastask.yml'
+      include_tasks: '/opt/communityapps/apps/_core.yml'
 
     # LABELS ######################################################################
     - name: 'Adding Traefik'
@@ -27,7 +24,7 @@
           traefik.enable: 'true'
           traefik.port: '{{intport}}'
           traefik.frontend.auth.forward.address: '{{gauth}}'
-          traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}}'
+          traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}}{{tldset}}{{cname}}'
           traefik.frontend.headers.SSLHost: '{{domain.stdout}}'
           traefik.frontend.headers.SSLRedirect: 'true'
           traefik.frontend.headers.STSIncludeSubdomains: 'true'

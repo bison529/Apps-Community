@@ -29,8 +29,8 @@
           traefik.backend: '{{pgrole}}'
           traefik.port: '80'
           traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}}{{tldset}}{{cname}}'
-          YUBICO_CLIENT_ID: '52172'
-          YUBICO_SECRET_KE: 'aFLylMlH9uBncgfm7zX0/oVKD8A='
+          YUBICO_CLIENT_ID: '--ADD-CLIENT-ID--'
+          YUBICO_SECRET_KE: '--ADD-SECRET-KEY--'
 
     - name: 'Setting {{pgrole}} Volumes'
       set_fact:

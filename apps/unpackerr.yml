@@ -69,4 +69,3 @@
               - '{{pgrole}}'
         state: started
         labels: '{{pg_labels}}'
-© 2021 GitHub, Inc.

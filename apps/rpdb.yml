@@ -34,9 +34,9 @@
     - name: 'Setting PG Volumes'
       set_fact:
         pg_volumes:
-          - '/opt/appdata/{{pgrole}}:/config'
+          - '/opt/appdata/{{pgrole}}:/rpdb/config'
           - '{{path.stdout}}:{{path.stdout}}'
-          - '/mnt:/mnt'
+          - '/mnt:/rpdb/mounts'
           - '/etc/localtime:/etc/localtime:ro'
 
     - name: 'Setting PG ENV'
